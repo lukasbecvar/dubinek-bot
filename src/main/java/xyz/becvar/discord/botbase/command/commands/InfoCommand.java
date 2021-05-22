@@ -2,51 +2,37 @@ package xyz.becvar.discord.botbase.command.commands;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import xyz.becvar.discord.botbase.command.CommandManager;
 import xyz.becvar.discord.botbase.command.ICommand;
-import xyz.becvar.discord.botbase.config.ConfigManager;
-
 import java.awt.*;
 import java.util.List;
 
-/*
- * The help command instance
- * Function: Show all commands and description
-*/
-
-public class HelpCommand implements ICommand {
-
-    public final CommandManager manager;
-
-    public HelpCommand(CommandManager m) {
-        this.manager = m;
-    }
-
+public class InfoCommand implements ICommand {
     @Override
     public void run(List<String> args, GuildMessageReceivedEvent event) {
-
+        //Set msg
         EmbedBuilder usage = new EmbedBuilder();
-
-        usage.setTitle("The all my commands");
-
         usage.setColor(Color.DARK_GRAY);
+        usage.setTitle("Discord bot info");
+        usage.setDescription("Developer website https://becvar.xyz/\nBuilded on https://github.com/lordbecvold/jda-discord-bot-base");
+        usage.addField("Developer", "Lordbecvold", false);
+        usage.addField("Lang", "Java", false);
+        usage.addField("Library", "JDA (Java Discord API)", false);
 
-        manager.getCommands().forEach(command -> {
-            usage.addField("``" + ConfigManager.instance.getPrefix() + command.getCommand() + "``", command.getHelp(), false);
-        });
-
+        //Set footer
         usage.setFooter(event.getAuthor().getAsTag() + " use this command", event.getAuthor().getAvatarUrl());
 
+        //Send msg to discord channel
         event.getChannel().sendMessage(usage.build()).queue();
     }
 
     @Override
     public String getCommand() {
-        return "help";
+        return "info";
     }
 
     @Override
     public String getHelp() {
-        return "Show all commands with description";
+        return "Show all bot info";
     }
 }
+

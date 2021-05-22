@@ -2,39 +2,19 @@ package xyz.becvar.discord.botbase.command.commands;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import xyz.becvar.discord.botbase.command.CommandManager;
 import xyz.becvar.discord.botbase.command.ICommand;
-import xyz.becvar.discord.botbase.config.ConfigManager;
-
 import java.awt.*;
 import java.util.List;
 
-/*
- * The help command instance
- * Function: Show all commands and description
-*/
-
-public class HelpCommand implements ICommand {
-
-    public final CommandManager manager;
-
-    public HelpCommand(CommandManager m) {
-        this.manager = m;
-    }
-
+public class InviteCommand implements ICommand {
     @Override
     public void run(List<String> args, GuildMessageReceivedEvent event) {
-
         EmbedBuilder usage = new EmbedBuilder();
-
-        usage.setTitle("The all my commands");
-
         usage.setColor(Color.DARK_GRAY);
+        usage.setTitle("Invite");
+        usage.setDescription(event.getChannel().createInvite().complete().getUrl());
 
-        manager.getCommands().forEach(command -> {
-            usage.addField("``" + ConfigManager.instance.getPrefix() + command.getCommand() + "``", command.getHelp(), false);
-        });
-
+        //Set footer
         usage.setFooter(event.getAuthor().getAsTag() + " use this command", event.getAuthor().getAvatarUrl());
 
         event.getChannel().sendMessage(usage.build()).queue();
@@ -42,11 +22,11 @@ public class HelpCommand implements ICommand {
 
     @Override
     public String getCommand() {
-        return "help";
+        return "invite";
     }
 
     @Override
     public String getHelp() {
-        return "Show all commands with description";
+        return "Send actual invite link";
     }
 }

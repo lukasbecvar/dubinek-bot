@@ -3,8 +3,9 @@ package xyz.becvar.discord.botbase.command;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import xyz.becvar.discord.botbase.Main;
-import xyz.becvar.discord.botbase.command.commands.HelpCommand;
-import xyz.becvar.discord.botbase.command.commands.TestCommand;
+import xyz.becvar.discord.botbase.command.commands.*;
+import xyz.becvar.discord.botbase.command.commands.admin.ClearCommand;
+import xyz.becvar.discord.botbase.command.commands.admin.CreateCommand;
 import xyz.becvar.discord.botbase.config.ConfigManager;
 import xyz.becvar.discord.botbase.file.FileSystem;
 import xyz.becvar.discord.botbase.utils.Logger;
@@ -28,6 +29,15 @@ public class CommandManager {
 
         //Init all commands
         addCommand(new HelpCommand(this));
+        addCommand(new ClearCommand());
+        addCommand(new AvatarCommand());
+        addCommand(new InfoCommand());
+        addCommand(new CreateCommand());
+        addCommand(new CryptCommand());
+        addCommand(new DecryptCommand());
+        addCommand(new ServerStatusCommand());
+        addCommand(new InviteCommand());
+        addCommand(new SpotifyCommand());
 
         //Init developer command
         if (ConfigManager.instance.isDevMode()) {
@@ -76,8 +86,10 @@ public class CommandManager {
 
         if (!ConfigManager.instance.getTerminalChannel().equalsIgnoreCase("all")) {
             if (!ConfigManager.instance.getTerminalChannel().equalsIgnoreCase(event.getChannel().getId())) {
-                SendPrivateMessage.sendPrivateMessage(event.getAuthor(), "```You can use commands only in " + ConfigManager.instance.getTerminalChannelName() + " channel!```");
-                return;
+                if (!event.getMessage().getContentRaw().startsWith(ConfigManager.instance.getPrefix() + "clear") && !event.getMessage().getContentRaw().startsWith(ConfigManager.instance.getPrefix() + "create")) {
+                    SendPrivateMessage.sendPrivateMessage(event.getAuthor(), "```You can use commands only in " + ConfigManager.instance.getTerminalChannelName() + " channel!```");
+                    return;
+                }
             }
         }
 
