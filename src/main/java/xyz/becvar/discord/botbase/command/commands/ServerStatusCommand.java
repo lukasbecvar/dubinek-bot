@@ -16,17 +16,17 @@ public class ServerStatusCommand implements ICommand {
         usage.setTitle("Server Status");
 
         //Set status of web server
-        if (ServerStatusUtils.checkIfURLExists("http://173.249.12.179/")) {
+        if (ServerStatusUtils.checkIfURLExists("http://185.252.233.220/")) {
             usage.addField("Web server", "Online", false);
         } else {
             usage.addField("Web server", "Offline", false);
         }
 
         //Set status of Floor mincraft server
-        if (ServerStatusUtils.hostAvailabilityCheck("173.249.12.179", 25565)) {
-            usage.addField("FloorCraft server", "Online", false);
+        if (ServerStatusUtils.hostAvailabilityCheck("185.252.233.220", 25565)) {
+            usage.addField("Minecraft server", "Online", false);
         } else {
-            usage.addField("FloorCraft server", "Offline", false);
+            usage.addField("Minecraft server", "Offline", false);
         }
 
         //Set footer

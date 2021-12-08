@@ -1,0 +1,17 @@
+{
+  "apiToken": "token",
+  "ActivityType": "Listening",
+  "statusText": "!help",
+  "Status": "Online",
+  "BotName": "Dubinek",
+  "DevMode": "0",
+  "DevUserID": "801084631159013378",
+  "CommandPrefix": "!",
+  "TerminalChannel": "821088486735085568",
+  "TerminalChannelName": "Terminal",
+  "DefaultRole": "821850631740063804",
+  "UserJoinEventEnabled": "1",
+  "UserLeaveEventEnabled": "1",
+  "MessageLoggerEnabled": "1",
+  "SystemLoggerEnabled": "1"
+}
