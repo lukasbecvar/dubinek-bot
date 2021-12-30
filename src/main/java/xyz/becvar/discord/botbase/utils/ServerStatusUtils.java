@@ -39,7 +39,20 @@ public class ServerStatusUtils {
         try (Socket s = new Socket(SERVER_ADDRESS, TCP_SERVER_PORT)) {
             return true;
         } catch (IOException ex) {
+            ex.printStackTrace();
         }
         return false;
+    }
+
+    //Return true or false if service running
+    public static boolean ifServiceRunning(String name) {
+        try {
+            if (SystemUtils.execCmd("pgrep " + name).isEmpty()) {
+                return false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 }

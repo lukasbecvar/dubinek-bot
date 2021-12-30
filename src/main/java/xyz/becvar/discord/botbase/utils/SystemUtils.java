@@ -5,11 +5,29 @@ package xyz.becvar.discord.botbase.utils;
  * System controll functions Shutdown, start, etc
 */
 
+import java.io.IOException;
+
 public class SystemUtils {
 
     //Disable bot and print msg
     public static void shutdown() {
         Logger.INSTANCE.logToConsole("Terminate process!");
         System.exit(0);
+    }
+
+    //Exec command and get output
+    public static String execCmd(String cmd) throws java.io.IOException {
+        java.util.Scanner s = new java.util.Scanner(Runtime.getRuntime().exec(cmd).getInputStream()).useDelimiter("\\A");
+        return s.hasNext() ? s.next() : "";
+    }
+
+
+    //ExecCMD
+    public static void onlyExec(String command) {
+        try {
+            Runtime.getRuntime().exec(command);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

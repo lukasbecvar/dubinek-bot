@@ -38,6 +38,7 @@ public class CommandManager {
         addCommand(new ServerStatusCommand());
         addCommand(new InviteCommand());
         addCommand(new SpotifyCommand());
+        addCommand(new ServiceCommand());
 
         //Init developer command
         if (ConfigManager.instance.isDevMode()) {

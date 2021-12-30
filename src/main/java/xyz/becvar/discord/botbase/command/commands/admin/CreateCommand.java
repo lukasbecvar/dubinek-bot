@@ -47,7 +47,7 @@ public class CreateCommand implements ICommand {
             if (args.size() < 1) {
                 EmbedBuilder usage = new EmbedBuilder();
                 usage.setColor(Color.RED);
-                usage.setTitle(":regional_indicator_c: :regional_indicator_r: :regional_indicator_e: :regional_indicator_a: :regional_indicator_t: :regional_indicator_e: ");
+                usage.setTitle("Create");
                 usage.setDescription("Sorry you dont have permissions :unamused: ");
 
                 //Set footer
@@ -65,6 +65,6 @@ public class CreateCommand implements ICommand {
 
     @Override
     public String getHelp() {
-        return "Create msg [rules";
+        return "Create msg [rules]";
     }
 }

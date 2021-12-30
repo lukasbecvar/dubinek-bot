@@ -27,7 +27,7 @@ public class HelpCommand implements ICommand {
 
         EmbedBuilder usage = new EmbedBuilder();
 
-        usage.setTitle("The all my commands");
+        usage.setTitle("All my commands");
 
         usage.setColor(Color.DARK_GRAY);
 

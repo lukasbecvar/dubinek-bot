@@ -15,14 +15,35 @@ public class ServerStatusCommand implements ICommand {
         usage.setColor(Color.DARK_GRAY);
         usage.setTitle("Server Status");
 
+        //Set status of tor server
+        if (ServerStatusUtils.ifServiceRunning("ts3server")) {
+            usage.addField("TeamSpeak server", "Online", false);
+        } else {
+            usage.addField("TeamSpeak server", "Offline", false);
+        }
+
         //Set status of web server
-        if (ServerStatusUtils.checkIfURLExists("http://185.252.233.220/")) {
+        if (ServerStatusUtils.ifServiceRunning("apache2")) {
             usage.addField("Web server", "Online", false);
         } else {
             usage.addField("Web server", "Offline", false);
         }
 
-        //Set status of Floor mincraft server
+        //Set status of database server
+        if (ServerStatusUtils.ifServiceRunning("mariadb")) {
+            usage.addField("Database server", "Online", false);
+        } else {
+            usage.addField("Database server", "Offline", false);
+        }
+
+        //Set status of tor server
+        if (ServerStatusUtils.ifServiceRunning("tor")) {
+            usage.addField("Tor service", "Online", false);
+        } else {
+            usage.addField("Tor service", "Offline", false);
+        }
+
+        //Set status of mincraft server
         if (ServerStatusUtils.hostAvailabilityCheck("185.252.233.220", 25565)) {
             usage.addField("Minecraft server", "Online", false);
         } else {
