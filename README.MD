@@ -6,7 +6,7 @@ TODO:
 ## Dependencies
 This project requires Java 11.
 * JDA
-   * Version: **4.2.1_253<**
+   * Version: **5.0.0-alpha.3**
    * [Website](https://github.com/DV8FromTheWorld/JDA)
 * Slf4j-api
    * Version: **1.7.5**

@@ -1,6 +1,6 @@
 package xyz.becvar.discord.botbase.event.events;
 
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import xyz.becvar.discord.botbase.command.CommandManager;
 import javax.annotation.Nonnull;
@@ -15,7 +15,7 @@ public class SendMessageEvent extends ListenerAdapter {
     public final CommandManager commandManager = new CommandManager();
 
     @Override
-    public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent event) {
+    public void onMessageReceived(@Nonnull MessageReceivedEvent event) {
         commandManager.run(event);
     }
 }

@@ -1,6 +1,6 @@
 package xyz.becvar.discord.botbase.command.commands;
 
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import xyz.becvar.discord.botbase.command.ICommand;
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
 public class TestCommand implements ICommand {
 
     @Override
-    public void run(List<String> args, GuildMessageReceivedEvent event) {
+    public void run(List<String> args, MessageReceivedEvent event) {
         event.getChannel().sendMessage("test").queue();
 
     }

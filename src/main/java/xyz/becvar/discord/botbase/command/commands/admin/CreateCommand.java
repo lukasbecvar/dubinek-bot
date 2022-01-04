@@ -2,7 +2,7 @@ package xyz.becvar.discord.botbase.command.commands.admin;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import xyz.becvar.discord.botbase.command.ICommand;
 import xyz.becvar.discord.botbase.config.ConfigManager;
 
@@ -12,7 +12,7 @@ import java.util.List;
 public class CreateCommand implements ICommand {
 
     @Override
-    public void run(List<String> args, GuildMessageReceivedEvent event) {
+    public void run(List<String> args, MessageReceivedEvent event) {
         //Check if user is admin
         if (event.getMember().hasPermission(Permission.ADMINISTRATOR)) {
 
@@ -25,7 +25,7 @@ public class CreateCommand implements ICommand {
                 //Set footer
                 usage.setFooter(event.getAuthor().getAsTag() + " use this command", event.getAuthor().getAvatarUrl());
 
-                event.getChannel().sendMessage(usage.build()).queue();
+                event.getChannel().sendMessageEmbeds(usage.build()).queue();
             } else {
                 if (args.get(0).equalsIgnoreCase("rules")) {
                     event.getChannel().sendMessage("```General server rules …\n… No blank nicknames.\n… No sexually explicit nicknames.\n… No offensive nicknames.\n… No nicknames with unusual or unreadable Unicode.\n… No offensive profile pictures.```").queue();
@@ -40,7 +40,7 @@ public class CreateCommand implements ICommand {
                     //Set footer
                     usage.setFooter(event.getAuthor().getAsTag() + " use this command", event.getAuthor().getAvatarUrl());
 
-                    event.getChannel().sendMessage(usage.build()).queue();
+                    event.getChannel().sendMessageEmbeds(usage.build()).queue();
                 }
             }
         } else {
@@ -53,7 +53,7 @@ public class CreateCommand implements ICommand {
                 //Set footer
                 usage.setFooter(event.getAuthor().getAsTag() + " use this command", event.getAuthor().getAvatarUrl());
 
-                event.getChannel().sendMessage(usage.build()).queue();
+                event.getChannel().sendMessageEmbeds(usage.build()).queue();
             }
         }
     }

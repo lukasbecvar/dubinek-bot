@@ -3,7 +3,7 @@ package xyz.becvar.discord.botbase.command.commands.admin;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import xyz.becvar.discord.botbase.command.ICommand;
 import xyz.becvar.discord.botbase.config.ConfigManager;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ClearCommand implements ICommand {
     @Override
-    public void run(List<String> args, GuildMessageReceivedEvent event) {
+    public void run(List<String> args, MessageReceivedEvent event) {
         //Check if user executed command and if user have permissions on execute
         if (event.getMember().hasPermission(Permission.ADMINISTRATOR)) {
 
@@ -27,17 +27,17 @@ public class ClearCommand implements ICommand {
                 usage.setDescription("Usage: `" + ConfigManager.instance.getPrefix() + "clear [# of messages]`");
 
                 //Send msg to discord channel
-                event.getChannel().sendMessage(usage.build()).queue();
+                event.getChannel().sendMessageEmbeds(usage.build()).queue();
             } else {
 
                 //if user add count try delete and print msg
                 try {
                     List<Message> messages = event.getChannel().getHistory().retrievePast(Integer.parseInt(args.get(0))).complete();
-                    event.getChannel().deleteMessages(messages).queue();
+                    event.getTextChannel().deleteMessages(messages).queue();
                     EmbedBuilder success = new EmbedBuilder();
                     success.setColor(0x22ff2a);
                     success.setTitle("✅ Successfully deleted " + args.get(0) + " messages.");
-                    event.getChannel().sendMessage(success.build()).queue();
+                    event.getChannel().sendMessageEmbeds(success.build()).queue();
                 } catch (IllegalArgumentException e) {
 
                     //Prinit this if user add count > 100
@@ -46,7 +46,7 @@ public class ClearCommand implements ICommand {
                         error.setColor(0xff3923);
                         error.setTitle("Too many messages selected");
                         error.setDescription("Between 1-100 messages can be deleted at one time.");
-                        event.getChannel().sendMessage(error.build()).queue();
+                        event.getChannel().sendMessageEmbeds(error.build()).queue();
                     } else {
 
                         //Send this msg if user try delete 2 weeks old msgs
@@ -54,7 +54,7 @@ public class ClearCommand implements ICommand {
                         error.setColor(0xff3923);
                         error.setTitle("Selected messages are older than 2 weeks");
                         error.setDescription("Messages older than 2 weeks cannot be deleted.");
-                        event.getChannel().sendMessage(error.build()).queue();
+                        event.getChannel().sendMessageEmbeds(error.build()).queue();
                     }
                 }
             }

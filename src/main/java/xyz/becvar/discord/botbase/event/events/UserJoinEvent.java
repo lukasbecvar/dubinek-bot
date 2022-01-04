@@ -28,7 +28,7 @@ public class UserJoinEvent extends ListenerAdapter {
         join.setDescription(event.getMember().getAsMention() + " joined the server :slight_smile: ");
 
         // Send msg
-        event.getGuild().getDefaultChannel().sendMessage(join.build()).queue();
+        event.getGuild().getDefaultChannel().sendMessageEmbeds(join.build()).queue();
 
 
         if (ConfigManager.instance.isSystemLoggerEnabled()) {

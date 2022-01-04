@@ -1,7 +1,7 @@
 package xyz.becvar.discord.botbase.command.commands;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import xyz.becvar.discord.botbase.command.CommandManager;
 import xyz.becvar.discord.botbase.command.ICommand;
 import xyz.becvar.discord.botbase.config.ConfigManager;
@@ -23,7 +23,7 @@ public class HelpCommand implements ICommand {
     }
 
     @Override
-    public void run(List<String> args, GuildMessageReceivedEvent event) {
+    public void run(List<String> args, MessageReceivedEvent event) {
 
         EmbedBuilder usage = new EmbedBuilder();
 
@@ -37,7 +37,7 @@ public class HelpCommand implements ICommand {
 
         usage.setFooter(event.getAuthor().getAsTag() + " use this command", event.getAuthor().getAvatarUrl());
 
-        event.getChannel().sendMessage(usage.build()).queue();
+        event.getChannel().sendMessageEmbeds(usage.build()).queue();
     }
 
     @Override

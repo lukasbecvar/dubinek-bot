@@ -1,14 +1,14 @@
 package xyz.becvar.discord.botbase.command.commands;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import xyz.becvar.discord.botbase.command.ICommand;
 import java.awt.*;
 import java.util.List;
 
 public class InfoCommand implements ICommand {
     @Override
-    public void run(List<String> args, GuildMessageReceivedEvent event) {
+    public void run(List<String> args, MessageReceivedEvent event) {
         //Set msg
         EmbedBuilder usage = new EmbedBuilder();
         usage.setColor(Color.DARK_GRAY);
@@ -22,7 +22,7 @@ public class InfoCommand implements ICommand {
         usage.setFooter(event.getAuthor().getAsTag() + " use this command", event.getAuthor().getAvatarUrl());
 
         //Send msg to discord channel
-        event.getChannel().sendMessage(usage.build()).queue();
+        event.getChannel().sendMessageEmbeds(usage.build()).queue();
     }
 
     @Override
