@@ -12,7 +12,7 @@
     </properties>
 
     <groupId>${build.package}</groupId>
-    <artifactId>jdaBotBase</artifactId>
+    <artifactId>Dubinek</artifactId>
     <version>${build.version}</version>
     <packaging>jar</packaging>
 
