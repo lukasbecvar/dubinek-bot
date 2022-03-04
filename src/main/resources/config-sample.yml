@@ -1,0 +1,14 @@
+token: "token"
+ActivityType: "Listening"
+statusText: "!help"
+status: "Online"
+BotName: "Dubinek"
+DevMode: false
+DevUserID: "801084631159013378"
+CommandPrefix: "!"
+TerminalChannel: "821088486735085568"
+TerminalChannelName: "Terminal"
+DefaultRole: "821850631740063804"
+UserJoinEventEnabled: true
+UserLeaveEventEnabled: true
+logging: true

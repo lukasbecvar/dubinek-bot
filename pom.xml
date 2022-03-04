@@ -5,15 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
-        <build.version>1.0.0</build.version>
-        <build.package>xyz.becvar.discord.botbase</build.package>
-        <build.main>xyz.becvar.discord.botbase.Main</build.main>
-        <build.java.version>11</build.java.version>
+        <build.version>3.0.0</build.version>
+        <build.package>me.lordbecvold.bot</build.package>
+        <build.main>me.lordbecvold.bot.Main</build.main>
+        <build.java.version>17</build.java.version>
     </properties>
 
-    <groupId>xyz.becvar.discord.botbase</groupId>
-    <artifactId>DubinekBot</artifactId>
-    <version>1.0.3</version>
+    <groupId>${build.package}</groupId>
+    <artifactId>jdaBotBase</artifactId>
+    <version>${build.version}</version>
     <packaging>jar</packaging>
 
     <build>
@@ -76,9 +76,14 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.esotericsoftware.yamlbeans</groupId>
+            <artifactId>yamlbeans</artifactId>
+            <version>1.15</version>
+        </dependency>
+        <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
-            <version>5.0.0-alpha.3</version>
+            <version>5.0.0-alpha.9</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -90,11 +95,5 @@
             <artifactId>slf4j-simple</artifactId>
             <version>1.6.4</version>
         </dependency>
-        <dependency>
-            <groupId>com.googlecode.json-simple</groupId>
-            <artifactId>json-simple</artifactId>
-            <version>1.1.1</version>
-        </dependency>
-
     </dependencies>
 </project>
