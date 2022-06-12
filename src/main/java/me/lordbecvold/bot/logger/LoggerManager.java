@@ -2,6 +2,7 @@ package me.lordbecvold.bot.logger;
 
 import me.lordbecvold.bot.config.ConfigManager;
 import me.lordbecvold.bot.utils.console.ConsoleLogger;
+import me.lordbecvold.bot.utils.database.MysqlUtils;
 import me.lordbecvold.bot.utils.file.FileUtils;
 import me.lordbecvold.bot.utils.system.SystemUtil;
 import me.lordbecvold.bot.utils.system.TimeUtils;
@@ -21,6 +22,7 @@ public class LoggerManager {
     public static FileUtils fileUtils = new FileUtils();
     public static ConfigManager configManager = new ConfigManager();
     public static TimeUtils timeUtils = new TimeUtils();
+    public static MysqlUtils mysqlUtils = new MysqlUtils();
 
     public void init() {
 
@@ -29,9 +31,15 @@ public class LoggerManager {
             // Print info to console
             consoleLogger.logWithPrefix("Log manager", "log manager initiating - logging is enabled");
 
-            // Create logs dir if not exist
-            if (!Files.exists(Path.of("logs/"))) {
-                createlogDir();
+            // Check if mysql logging is enabled
+            if (!mysqlUtils.isMysqlLogginEnabled()) {
+
+                // Create logs dir if not exist
+                if (!Files.exists(Path.of("logs/"))) {
+                    createlogDir();
+                }
+            } else {
+                consoleLogger.logWithPrefix("Log manager", "Mysql logging is enabled!");
             }
         }
     }
@@ -39,21 +47,25 @@ public class LoggerManager {
     public static void createlogDir() {
         // Check if logging is enabled
         if (configManager.getConfigBolValue("logging")) {
-            if (!Files.exists(Path.of("logs/"))) {
-                try {
-                    Files.createDirectories(Paths.get("logs/"));
 
-                    if (Files.exists(Path.of("logs/"))) {
-                        consoleLogger.logWithPrefix("Log manager", "logs/ directory successfully created!");
-                    } else {
-                        consoleLogger.logError("Log manager", "error logs/ directory not created!");
-                        systemUtil.appShutdown();
+            //Ceck if mysql logging is disabled
+            if (!configManager.getConfigBolValue("mysqlLogging")) {
+                if (!Files.exists(Path.of("logs/"))) {
+                    try {
+                        Files.createDirectories(Paths.get("logs/"));
+
+                        if (Files.exists(Path.of("logs/"))) {
+                            consoleLogger.logWithPrefix("Log manager", "logs/ directory successfully created!");
+                        } else {
+                            consoleLogger.logError("Log manager", "error logs/ directory not created!");
+                            systemUtil.appShutdown();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
+                } else {
+                    consoleLogger.log("exist");
                 }
-            } else {
-                consoleLogger.log("exist");
             }
         }
     }
@@ -61,31 +73,34 @@ public class LoggerManager {
     // Save msg to msg log file
     public static void saveLog(String logFile, String log) {
 
-        if (!fileUtils.checkFileExist("config.yml")) {
-            return;
-        }
+        if (!mysqlUtils.isMysqlLogginEnabled()) {
 
-        if (!Files.exists(Path.of("logs/"))) {
-            createlogDir();
-        }
+            if (!fileUtils.checkFileExist("config.yml")) {
+                return;
+            }
 
-        // Check if logging is enabled
-        if (configManager.getConfigBolValue("logging")) {
+            if (!Files.exists(Path.of("logs/"))) {
+                createlogDir();
+            }
 
-            fileUtils.createFile("logs/" + logFile);
+            // Check if logging is enabled
+            if (configManager.getConfigBolValue("logging")) {
 
-            String time = timeUtils.getTime();
+                fileUtils.createFile("logs/" + logFile);
 
-            try {
-                if (Files.notExists(Paths.get("logs/" + logFile))) {
-                    File f = new File(String.valueOf(Paths.get("logs/" + logFile)));
-                    f.createNewFile();
+                String time = timeUtils.getTime();
+
+                try {
+                    if (Files.notExists(Paths.get("logs/" + logFile))) {
+                        File f = new File(String.valueOf(Paths.get("logs/" + logFile)));
+                        f.createNewFile();
+                    }
+                    try (PrintWriter output = new PrintWriter(new FileWriter("logs/" + logFile, true))) {
+                        output.printf("%s\r\n", "[" + time + "]: " + log);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                try(PrintWriter output = new PrintWriter(new FileWriter("logs/" + logFile, true))) {
-                    output.printf("%s\r\n", "[" + time + "]: " + log);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
     }

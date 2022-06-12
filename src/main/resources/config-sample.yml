@@ -12,3 +12,8 @@ DefaultRole: "821850631740063804"
 UserJoinEventEnabled: true
 UserLeaveEventEnabled: true
 logging: true
+mysqlLogging: false
+mysqlIP: "localhost"
+mysqlDatabase: "DUBINEK_BOT"
+mysqlUser: "root"
+mysqlPasswword: "root"

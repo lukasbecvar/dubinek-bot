@@ -1,0 +1,41 @@
+-- Adminer 4.8.1 MySQL 10.3.34-MariaDB-0ubuntu0.20.04.1 dump
+
+SET NAMES utf8;
+SET time_zone = '+00:00';
+SET foreign_key_checks = 0;
+SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
+
+SET NAMES utf8mb4;
+
+DROP TABLE IF EXISTS `error_log`;
+CREATE TABLE `error_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `prefix` char(255) CHARACTER SET cp1250 COLLATE cp1250_bin NOT NULL,
+  `error` char(255) CHARACTER SET cp1250 COLLATE cp1250_bin NOT NULL,
+  `date` char(255) CHARACTER SET cp1250 COLLATE cp1250_bin NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+DROP TABLE IF EXISTS `msg_log`;
+CREATE TABLE `msg_log` (
+  `id` int(255) NOT NULL AUTO_INCREMENT,
+  `author` char(255) CHARACTER SET cp1250 COLLATE cp1250_bin NOT NULL,
+  `channel` char(255) CHARACTER SET cp1250 COLLATE cp1250_bin NOT NULL,
+  `msg` char(255) CHARACTER SET cp1250 COLLATE cp1250_bin NOT NULL,
+  `date` char(255) CHARACTER SET cp1250 COLLATE cp1250_bin NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+DROP TABLE IF EXISTS `normal_log`;
+CREATE TABLE `normal_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `prefix` char(255) CHARACTER SET cp1250 COLLATE cp1250_bin NOT NULL,
+  `msg` char(255) CHARACTER SET cp1250 COLLATE cp1250_bin NOT NULL,
+  `date` char(255) CHARACTER SET cp1250 COLLATE cp1250_bin NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+-- 2022-06-12 09:28:01

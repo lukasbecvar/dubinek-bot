@@ -2,6 +2,7 @@ package me.lordbecvold.bot.utils.console;
 
 import me.lordbecvold.bot.Main;
 import me.lordbecvold.bot.logger.LoggerManager;
+import me.lordbecvold.bot.utils.database.MysqlUtils;
 
 public class ConsoleLogger {
 
@@ -25,27 +26,58 @@ public class ConsoleLogger {
     private String ANSI_CYAN = "\u001B[36m";
     private String ANSI_WHITE = "\u001B[37m";
 
+    //Init
+    public MysqlUtils mysqlUtils =  new MysqlUtils();
+
     // Print normal log to console
     public void log(String msg) {
-        LoggerManager.saveLog("normal.log", msg);
+
+        //Check if mysql logging enabled
+        if (mysqlUtils.isMysqlLogginEnabled()) {
+            mysqlUtils.saveNORMALLog(Main.configManager.getBotName(), msg);
+        } else {
+            LoggerManager.saveLog("normal.log", msg);
+        }
+
         System.out.println(ANSI_GREEN + Main.configManager.getBotName() + ": " + ANSI_YELLOW + msg + ANSI_RESET);
     }
 
     // Print normal log to console
     public void logMSG(String author, String channel, String msg) {
-        LoggerManager.saveLog("msgs.log", msg);
+
+        //Check if mysql logging enabled
+        if (mysqlUtils.isMysqlLogginEnabled()) {
+            mysqlUtils.saveMSGLog(author, channel, msg);
+        } else {
+            LoggerManager.saveLog("msgs.log", msg);
+        }
+
         System.out.println(ANSI_GREEN + Main.configManager.getBotName() + ": " + ANSI_BLUE + author + " [" + channel + "] : " + msg + ANSI_RESET);
     }
 
     // Print log with own prefix
     public void logWithPrefix(String prefix, String msg) {
-        LoggerManager.saveLog("normal.log", prefix + ": " + msg);
+
+        //Check if mysql logging enabled
+        if (mysqlUtils.isMysqlLogginEnabled()) {
+            mysqlUtils.saveNORMALLog(prefix, msg);
+        } else {
+            LoggerManager.saveLog("normal.log", prefix + ": " + msg);
+        }
+
         System.out.println(ANSI_GREEN + prefix + ": " + ANSI_YELLOW + msg + ANSI_RESET);
     }
 
     // Print error log
     public void logError(String prefix, String errorMSG) {
-        LoggerManager.saveLog("error.log", errorMSG);
+
+        //Check if mysql logging enabled
+        if (mysqlUtils.isMysqlLogginEnabled()) {
+            mysqlUtils.saveERRORLog(prefix, errorMSG);
+        } else {
+            LoggerManager.saveLog("error.log", errorMSG);
+        }
+
         System.out.println(ANSI_RED + prefix + ": " + errorMSG + ANSI_RESET);
     }
 
