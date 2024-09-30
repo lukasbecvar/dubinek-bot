@@ -1,9 +1,6 @@
 # Dubinek discord bot
 My personal discord chatbot
 
-## End of support
-This project is no longer being maintained or developed, and no further updates or support will be provided.
-
 # Features
 - Command System
 - YML config system
@@ -56,6 +53,9 @@ This project requires Java 17.
 * Mysql-connector
   * Version: **8.0.29**
   * [Website](https://dev.mysql.com/downloads/connector/j)
+
+# End of support
+This project is no longer being maintained or developed, and no further updates or support will be provided.
 
 ## License
 The project is open-sourced software licensed under the [MIT license](https://github.com/lukasbecvar/dubinek-bot/blob/main/LICENSE)
